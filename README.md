@@ -11,7 +11,7 @@
 ![Low Spec](https://img.shields.io/badge/1%20Core%20512MB%20VPS-Runs%20Great-success)
 [![License](https://img.shields.io/github/license/hyckr-rwzsn/emby-radar)](LICENSE)
 
-[快速部署](#快速部署) · [功能特性](#功能特性) · [工作流程](#工作流程) · [日常管理](#日常管理) · [配置说明](#配置说明) · [备份](#备份) · [数据与稳定性](#数据与稳定性) · [项目结构](#项目结构) · [安全说明](#安全说明)
+[免责声明](#免责声明) · [快速部署](#快速部署) · [功能特性](#功能特性) · [工作流程](#工作流程) · [日常管理](#日常管理) · [配置说明](#配置说明) · [备份](#备份) · [数据与稳定性](#数据与稳定性) · [项目结构](#项目结构) · [安全说明](#安全说明)
 
 </div>
 
@@ -59,7 +59,7 @@ flowchart LR
 
 ## 快速部署
 
-支持 Ubuntu、Debian，需要 `root` 或 `sudo` 权限。
+支持 Ubuntu、Debian。首次部署**必须先交互式登录一次主账号**（生成登录会话），之后即可用 systemd 无人值守运行。
 
 ### 1. 环境要求（极低，专为小 VPS 优化）
 
@@ -67,9 +67,11 @@ flowchart LR
 - 一台能访问 Telegram 的服务器（Debian/Ubuntu）
 - **最低配置：1 核 CPU / 512MB 内存 / 1GB 硬盘** 即可稳定运行
 
-### 2. 安装依赖
+### 2. 获取代码并安装依赖
 
 ```bash
+git clone https://github.com/hyckr-rwzsn/emby-radar.git
+cd Emby-Radar
 pip3 install -r requirements.txt
 ```
 
@@ -77,23 +79,28 @@ pip3 install -r requirements.txt
 
 ```bash
 cp .env.example .env
-# 编辑 .env，填入 API_ID / API_HASH / Bot Token / 目标频道 ID
+# 编辑 .env，至少填入下面四项：
+#   API_ID / API_HASH                          （https://my.telegram.org 获取）
+#   ADMIN_BOT_TOKEN / FORWARD_BOT_TOKEN        （@BotFather 创建，共两个 Bot）
+#   TARGET_ID                                  （转发目标频道 ID）
+#   OWNER_ID                                   （你的 Telegram 数字 ID）
 ```
 
-`API_ID` 与 `API_HASH` 从 https://my.telegram.org 获取；Bot Token 从 @BotFather 创建。
-
-### 4. 首次登录
+### 4. 首次交互式登录（必须）
 
 ```bash
 python3 tg_monitor_v9.py
-# 按提示输入手机号和验证码，登录成功后 Ctrl+C 停止
+# 首次运行会引导输入主账号的手机号 + 验证码完成登录
+# 登录成功、看到启动日志后按 Ctrl+C 停止
 ```
 
-### 5. systemd 托管（推荐）
+> ⚠️ 这一步**必须在终端完成**（需要手动输入验证码）。登录会话保存在 `data/sessions/`，后续 systemd 复用，无需重复登录。
+
+### 5. systemd 托管（可选，长期运行推荐）
 
 ```bash
 sudo sh deploy_runtime.sh
-# 一键：建 venv、装依赖、装 systemd 服务、启动（路径自动适配项目目录，无需手动搬 /app）
+# 脚本自建 venv 装依赖、安装 systemd 服务并启动，路径自动适配项目目录
 sudo systemctl status tg-monitor
 ```
 
