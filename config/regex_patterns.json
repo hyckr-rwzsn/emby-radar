@@ -1,0 +1,17 @@
+{
+  "_comment": "正则规则模板（开源版）—— 规则已清空。部署后请参照各 key 的结构，自行填入你需要的规则（死刑词 / 领域正则 / 码规则 / 信号词等）。字段结构说明见 README.md。",
+  "_version": "opensource",
+  "_updated": "2026-10-09",
+  "DNA_SPECIAL_PATTERNS": [],
+  "CODE_PATTERNS": [],
+  "STRICT_CODE_PATTERN": "",
+  "LOTTERY_ID_PATTERN": "",
+  "KILL_PATTERNS": {
+    "DEATH_WORDS": []
+  },
+  "DOMAIN_PATTERNS": {},
+  "RULE_OBJECTS": [],
+  "ACTION_SIGNALS": {},
+  "NOISE_SIGNALS": {},
+  "CLEAN_PATTERNS": {}
+}

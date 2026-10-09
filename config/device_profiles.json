@@ -1,0 +1,32 @@
+{
+  "_comment": "Telegram设备伪装配置库 - 双机随机轮换",
+  "_version": "10.4",
+
+  "active_profile": "oneplus_13",
+
+  "profiles": {
+    "oneplus_13": {
+      "device_model": "OnePlus 13 (PJZ110)",
+      "system_version": "ColorOS 16.0.5",
+      "app_version": "12.6.4",
+      "lang_code": "zh-Hans",
+      "system_lang_code": "zh-Hans",
+      "description": "一加13 - 国行版，高伪装度"
+    },
+    "r9000p": {
+      "device_model": "Lenovo Legion R9000P2021H",
+      "system_version": "Windows 11 Pro 24H2 (26100.6899)",
+      "app_version": "6.7.8 x64",
+      "lang_code": "zh-CN",
+      "system_lang_code": "zh-Hans-CN",
+      "description": "联想拯救者R9000P - Win11桌面端"
+    }
+  },
+
+  "rotation_strategy": {
+    "enabled": true,
+    "base_interval_days": 15,
+    "jitter_range": [-5, 5],
+    "note": "基础周期15天 + 随机抖动±5天，实际10-20天切换一次"
+  }
+}

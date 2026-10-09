@@ -1,0 +1,52 @@
+[Unit]
+Description=emby-radar - Telegram Emby Bonus Monitor
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=tg-monitor
+Group=tg-monitor
+WorkingDirectory=/app/tg_monitor
+ExecStartPre=+/usr/bin/install -d -m 750 -o tg-monitor -g tg-monitor /app/tg_monitor_data /app/tg_monitor_data/config /app/tg_monitor_data/sessions
+ExecStart=/app/tg_monitor_venv/bin/python /app/tg_monitor/tg_monitor_v9.py
+Restart=always
+RestartSec=10
+UMask=0077
+
+# 资源限制（适配512MB VPS）
+MemoryMax=450M
+MemoryHigh=400M
+CPUQuota=80%
+TasksMax=64
+
+# 安全加固
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/app/tg_monitor_data
+ProtectHome=true
+PrivateDevices=true
+PrivateTmp=true
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# 环境变量
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=TG_MONITOR_DATA_DIR=/app/tg_monitor_data
+
+# 日志
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=tg-monitor
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=100
+
+[Install]
+WantedBy=multi-user.target

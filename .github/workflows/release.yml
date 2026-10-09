@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 打包完整安装包
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mkdir -p dist
+          zip -r "dist/emby-radar_v${VERSION}_full.zip" . \
+            -x ".git/*" ".github/*" ".workbuddy/*" ".claude/*" ".deep-copilot/*" \
+               ".codex/*" ".agents/*" "*.zip"
+          cd dist
+          sha256sum "emby-radar_v${VERSION}_full.zip" > SHA256SUMS.txt
+
+      - name: 发布 Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: |
+            ## 🚀 emby-radar ${{ github.ref_name }}
+
+            极轻量的 Telegram Emby 福利信息监听、识别、去重与转发系统。
+
+            ### 📦 安装
+
+            下载下方 `emby-radar_*_full.zip` 解压，按 [README · 快速部署](https://github.com/hyckr-rwzsn/emby-radar#快速部署) 操作，5 分钟上线。
+
+            ### 🧩 首次使用
+
+            开箱不含任何过滤规则，请按 [README · 配置说明](https://github.com/hyckr-rwzsn/emby-radar#配置说明) 自行配置：
+            信息格式（转什么）→ 黑白名单（谁的）→ 死刑词（拦什么垃圾）。
+
+            ### ⚠️ 免责
+
+            仅供学习交流，请遵守 Telegram 服务条款与当地法律法规。
+          files: |
+            dist/emby-radar_v*.zip
+            dist/SHA256SUMS.txt
+          generate_release_notes: true

@@ -1,0 +1,45 @@
+# 核心凭证（绝不提交）
+.env
+env.local.bak
+env*.bak
+
+# Session 文件（含授权密钥）
+*.session
+*.session-journal
+
+# 数据库
+*.db
+*.db-wal
+*.db-shm
+
+# 日志
+*.log
+*.log.*
+
+# 备份临时文件
+backup.zip
+backup_*.zip
+radar_backup_*.zip
+.radar_backup_*.tmp
+
+# 本地运行时数据目录
+data/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 工具缓存
+.vscode/
+.idea/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# 项目记忆与内部工具目录（不公开）
+.workbuddy/
+.claude/
+.deep-copilot/
+.codex/
+.agents/
