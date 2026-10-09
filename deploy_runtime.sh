@@ -85,6 +85,12 @@ install -m 0644 "$JOURNAL_CONFIG" /etc/systemd/journald.conf.d/60-tg-monitor-lim
 systemctl restart systemd-journald
 
 sed -e "s|/app/tg_monitor_data|$DATA_DIR|g" -e "s|/app/tg_monitor_venv|$VENV_DIR|g" -e "s|/app/tg_monitor|$APP_DIR|g" "$APP_DIR/tg-monitor.service" > "/etc/systemd/system/$SERVICE_NAME.service"
+# systemd 的 ProtectHome 会屏蔽 /home 与 /root；若数据目录落在这些路径下，关闭该加固以允许写入
+case "$DATA_DIR" in
+    /home/*|/root/*)
+        sed -i 's/^ProtectHome=true/# ProtectHome disabled: data dir under protected path/' "/etc/systemd/system/$SERVICE_NAME.service"
+        ;;
+esac
 systemctl daemon-reload
 systemctl enable "$SERVICE_NAME"
 if ! systemctl restart "$SERVICE_NAME"; then
