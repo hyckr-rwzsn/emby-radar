@@ -1,6 +1,6 @@
 <div align="center">
 
-# emby-radar
+# Emby-Radar
 
 **极轻量的 Telegram Emby 福利信息监听、识别、去重与转发系统**
 
@@ -15,7 +15,7 @@
 
 </div>
 
-emby-radar 基于 Python、Telethon 与 SQLite，监听指定 Telegram 群组或频道，自动识别 Emby 福利信息（注册码 / 抽奖 / 兑换码等），按配置规则去重后转发到指定会话。专为单核、低内存服务器设计，**1 核 512MB 即可稳定运行**。
+Emby-Radar 基于 Python、Telethon 与 SQLite，监听指定 Telegram 群组或频道，自动识别 Emby 福利信息（注册码 / 抽奖 / 兑换码等），按配置规则去重后转发到指定会话。专为单核、低内存服务器设计，**1 核 512MB 即可稳定运行**。
 
 ## 免责声明
 
@@ -97,7 +97,7 @@ sudo sh deploy_runtime.sh
 sudo systemctl status tg-monitor
 ```
 
-> 建议把项目放在 `/opt` 或 `/srv` 等系统目录（例如 `/opt/emby-radar`）；若放在 `/home` 或 `/root` 下，脚本会自动调整 systemd 安全策略以允许写入，但仍是 `/opt` 更规范。
+> 建议把项目放在 `/opt` 或 `/srv` 等系统目录（例如 `/opt/Emby-Radar`）；若放在 `/home` 或 `/root` 下，脚本会自动调整 systemd 安全策略以允许写入，但仍是 `/opt` 更规范。
 
 ## 日常管理
 
@@ -266,7 +266,7 @@ sudo systemctl status tg-monitor
 ## 项目结构
 
 ```
-emby-radar/
+Emby-Radar/
 ├── tg_monitor_v9.py          # 主程序（单文件，含过滤链 / 去重 / 转发 / Bot 面板）
 ├── config/
 │   ├── regex_patterns.json   # 正则规则（首次运行自动复制到数据目录）

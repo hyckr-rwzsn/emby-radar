@@ -19,24 +19,24 @@ jobs:
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           mkdir -p dist
-          zip -r "dist/emby-radar_v${VERSION}_full.zip" . \
+          zip -r "dist/Emby-Radar_v${VERSION}_full.zip" . \
             -x ".git/*" ".github/*" ".workbuddy/*" ".claude/*" ".deep-copilot/*" \
                ".codex/*" ".agents/*" "*.zip"
           cd dist
-          sha256sum "emby-radar_v${VERSION}_full.zip" > SHA256SUMS.txt
+          sha256sum "Emby-Radar_v${VERSION}_full.zip" > SHA256SUMS.txt
 
       - name: 发布 Release
         uses: softprops/action-gh-release@v2
         with:
-          name: emby-radar ${{ github.ref_name }}
+          name: Emby-Radar ${{ github.ref_name }}
           body: |
-            ## 🚀 emby-radar ${{ github.ref_name }}
+            ## 🚀 Emby-Radar ${{ github.ref_name }}
 
             极轻量的 Telegram Emby 福利信息监听、识别、去重与转发系统。
 
             ### 📦 安装
 
-            下载下方 `emby-radar_*_full.zip` 解压，按 [README · 快速部署](https://github.com/hyckr-rwzsn/emby-radar#快速部署) 操作，5 分钟上线。
+            下载下方 `Emby-Radar_*_full.zip` 解压，按 [README · 快速部署](https://github.com/hyckr-rwzsn/emby-radar#快速部署) 操作，5 分钟上线。
 
             ### 🧩 首次使用
 
@@ -47,6 +47,6 @@ jobs:
 
             仅供学习交流，请遵守 Telegram 服务条款与当地法律法规。
           files: |
-            dist/emby-radar_v*.zip
+            dist/Emby-Radar_v*.zip
             dist/SHA256SUMS.txt
           generate_release_notes: true

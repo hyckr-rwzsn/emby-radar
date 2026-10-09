@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-emby-radar - 极轻量的 Telegram Emby 福利信息监听、识别、去重与转发系统
+Emby-Radar - 极轻量的 Telegram Emby 福利信息监听、识别、去重与转发系统
 目标：1核512MB/1GB硬盘 VPS 上的绝对稳定运行
 """
 
