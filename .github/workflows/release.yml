@@ -28,6 +28,7 @@ jobs:
       - name: 发布 Release
         uses: softprops/action-gh-release@v2
         with:
+          name: emby-radar ${{ github.ref_name }}
           body: |
             ## 🚀 emby-radar ${{ github.ref_name }}
 
